@@ -46,6 +46,7 @@ class LinkedList
 
   def pop
     cur = @head
+    prev = @head
     until cur.next_node.nil?
       prev = cur
       cur = cur.next_node
@@ -81,7 +82,7 @@ class LinkedList
   end
 
   def to_s
-    str = "( #{@head.value} ) -> "
+    str = ""
     temp = @head
     until temp.nil?
       str = str + "( #{temp.value} ) -> "
@@ -89,6 +90,49 @@ class LinkedList
     end
     str = str + 'nil'
     str
+  end
+
+  def insert_at(value, index)
+    cur = @head
+    prev= @head
+    pointer = 0
+    new_node = Node.new(value)
+    until cur.next_node.nil? 
+      if pointer == index
+        new_node.next_node = cur
+        if index == 0
+          @head = new_node
+        else
+          prev.next_node = new_node
+        end 
+        return new_node
+      else
+        prev = cur
+        cur = cur.next_node
+        pointer += 1
+      end
+    end
+  end
+
+  def remove_at(index)
+    if index == 0
+      @head = @head.next_node
+      return @head
+    else
+      cur = @head 
+      prev = @head
+      pointer = 0
+      until cur.nil?
+        if pointer == index
+          prev.next_node = cur.next_node
+          return cur
+        else
+          prev = cur
+          cur = cur.next_node
+          pointer += 1
+        end
+      end
+    end
   end
 end
 
@@ -109,4 +153,5 @@ list.append('element3')
 list.append('element4')
 list.append('element5')
 
-p list.to_s
+puts list.remove_at(7)
+puts list
