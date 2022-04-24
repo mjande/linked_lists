@@ -44,14 +44,52 @@ class LinkedList
     temp
   end
 
-  #Working on pop right now
   def pop
-    cur = @head.next_node
-    prev = @head
-    until temp.next_node.nil?
+    cur = @head
+    until cur.next_node.nil?
+      prev = cur
+      cur = cur.next_node
+    end
+    prev.next_node = nil
+    @tail = prev
+    cur 
+  end
+
+  def contains?(value)
+    temp = @head
+    until temp.nil?
+      if temp.value == value
+        return true
+      else
+        temp = temp.next_node
+      end
+    end
+    false
+  end
+
+  def find(value)
+    temp = @head 
+    index = 0
+    until temp.nil?
+      if temp.value == value
+        return index
+      else
+        temp = temp.next_node
+        index += 1
+      end
+    end
+  end
+
+  def to_s
+    str = "( #{@head.value} ) -> "
+    temp = @head
+    until temp.nil?
+      str = str + "( #{temp.value} ) -> "
       temp = temp.next_node
     end
-
+    str = str + 'nil'
+    str
+  end
 end
 
 class Node
@@ -71,4 +109,4 @@ list.append('element3')
 list.append('element4')
 list.append('element5')
 
-p list.at(3)
+p list.to_s
